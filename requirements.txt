@@ -1,0 +1,34 @@
+# Backend
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Data Analysis
+pandas
+numpy
+openpyxl
+
+# AI / LangChain
+langchain
+langchain-core
+langchain-community
+langchain-groq
+
+# Data Validation
+pydantic
+pydantic-settings
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Visualization
+plotly
+
+# Frontend
+streamlit
+
+# Environment
+python-dotenv
+
+streamlit
