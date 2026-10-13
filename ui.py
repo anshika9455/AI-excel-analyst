@@ -243,7 +243,7 @@ with tab_quality:
             miss_df = pd.DataFrame(
                 {"label": miss.index.astype(str), "value": miss.values}
             )
-            st.bar_chart(miss_df, x="label", y="value", sort="-y")
+            st.bar_chart(miss_df, x="label", y="value", sort="-value")
     with q2:
         st.subheader("Column types")
         types_df = pd.DataFrame(
@@ -294,7 +294,7 @@ with tab_charts:
             grouped_df = pd.DataFrame(
                 {"label": grouped.index.astype(str), "value": grouped.values}
             )
-            st.bar_chart(grouped_df, x="label", y="value", sort="-y")
+            st.bar_chart(grouped_df, x="label", y="value", sort="-value")
             st.caption(f"Top 20 `{group}` by {agg} of `{metric}`")
 
 # ------------------------------------------------------------------ #
