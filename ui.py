@@ -3,6 +3,7 @@ import json
 import re
 from datetime import datetime
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv
@@ -96,6 +97,20 @@ def load_excel(file_bytes: bytes, sheet):
 @st.cache_data(show_spinner=False)
 def sheet_names(file_bytes: bytes):
     return pd.ExcelFile(io.BytesIO(file_bytes)).sheet_names
+
+
+def sorted_bar(data: pd.DataFrame):
+    """Horizontal-label bar chart sorted by value (works on any Streamlit version)."""
+    chart = (
+        alt.Chart(data)
+        .mark_bar()
+        .encode(
+            x=alt.X("label:N", sort="-y", title=None),
+            y=alt.Y("value:Q", title=None),
+            tooltip=["label:N", "value:Q"],
+        )
+    )
+    st.altair_chart(chart, use_container_width=True)
 
 
 def build_summary(df: pd.DataFrame) -> dict:
@@ -243,7 +258,7 @@ with tab_quality:
             miss_df = pd.DataFrame(
                 {"label": miss.index.astype(str), "value": miss.values}
             )
-            st.bar_chart(miss_df, x="label", y="value", sort="-value")
+            sorted_bar(miss_df)
     with q2:
         st.subheader("Column types")
         types_df = pd.DataFrame(
@@ -294,7 +309,7 @@ with tab_charts:
             grouped_df = pd.DataFrame(
                 {"label": grouped.index.astype(str), "value": grouped.values}
             )
-            st.bar_chart(grouped_df, x="label", y="value", sort="-value")
+            sorted_bar(grouped_df)
             st.caption(f"Top 20 `{group}` by {agg} of `{metric}`")
 
 # ------------------------------------------------------------------ #
